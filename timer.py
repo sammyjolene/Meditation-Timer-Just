@@ -15,15 +15,28 @@ import simpleaudio as sa
 #stage 1 - complete
 #notes: having the bell toll at 1 second instead of zero so that it tolls at the end too
 meditation_length = int(input("How many minutes would you like to meditate: "))
+
+#converts seconds to minutes for range countdown
 new_length = int(meditation_length*60)
+
+#ding command creates a WaveObject from a wave file on disk
 ding = sa.WaveObject.from_wave_file("service-bell-ring-14610.wav")
+
+#counts down from the number of seconds to -1, moved stop to -1 so that 00:00:00 shows at the final time and has an ending tone
 for x in range((new_length), -1, -1):
     seconds = x % 60
     minutes = int(x / 60) % 60
     hours = int(x/3600)
+
+    #plays a ding each minute
     if seconds == 00:
         play_sound = ding.play()
         print('Interval')
+
+    #prints the time left
     print(f"{hours:02}:{minutes:02}:{seconds:02}")
+
+    #suspends execution for 1 second, creating the timer
     time.sleep(1)
+    
 print("Time's up")

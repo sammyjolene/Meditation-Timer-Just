@@ -16,14 +16,13 @@ import simpleaudio as sa
 #notes: having the bell toll at 1 second instead of zero so that it tolls at the end too
 meditation_length = int(input("How many minutes would you like to meditate: "))
 new_length = int(meditation_length*60)
-wave_obj = sa.WaveObject.from_wave_file("service-bell-ring-14610.wav")
-play_obj = wave_obj.play()
-for x in range(new_length, 0, -1):
+ding = sa.WaveObject.from_wave_file("service-bell-ring-14610.wav")
+for x in range((new_length), -1, -1):
     seconds = x % 60
     minutes = int(x / 60) % 60
     hours = int(x/3600)
-    if seconds == 1:
-        play_obj = wave_obj.play()
+    if seconds == 00:
+        play_sound = ding.play()
         print('Interval')
     print(f"{hours:02}:{minutes:02}:{seconds:02}")
     time.sleep(1)

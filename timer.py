@@ -9,42 +9,46 @@
 
 #Sound Effect from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=14610">Pixabay</a>
 
+
 import time
 import simpleaudio as sa
 
-#stage 1 - complete
-meditation_length = int(input("How many minutes would you like to meditate: "))
 
-#the length between each sound, just re-enter the meditation length for start and end ding only
-interval_length = int(input("How often (in minutes) would you like the interval ding to go off: "))
+def timer(meditation_length, interval_length):
+    # #stage 1 - complete
+    # meditation_length = int(input("How many minutes would you like to meditate: "))
 
-#converts seconds to minutes for range countdown
-new_Mlength = int(meditation_length*60)
+    # #the length between each sound, just re-enter the meditation length for start and end ding only
+    # interval_length = int(input("How often (in minutes) would you like the interval ding to go off: "))
 
-#converts seconds to minutes for interval 
-new_Ilength = int(interval_length*60)
+    #converts seconds to minutes for range countdown
+    new_Mlength = int(meditation_length*60)
 
-#ding command creates a WaveObject from a wave file on disk
-ding = sa.WaveObject.from_wave_file("service-bell-ring-14610.wav")
+    #converts seconds to minutes for interval 
+    new_Ilength = int(interval_length*60)
 
-#count for interval dings
-count = 0
+    #ding command creates a WaveObject from a wave file on disk
+    ding = sa.WaveObject.from_wave_file("service-bell-ring-14610.wav")
 
-#counts down from the number of seconds to -1, moved stop to -1 so that 00:00:00 shows at the final time and has an ending tone
-for x in range((new_Mlength), -1, -1):
-    seconds = x % 60
-    minutes = int(x / 60) % 60
-    hours = int(x/3600)
+    #count for interval dings
+    count = 0
 
-    #As we increment count if it is dvisible by interval length the ding should go off OR when we hit the last x (-1) in the range
-    if count % new_Ilength == 0 or x == 0:
-        play_sound = ding.play()
-    count += 1
+    #counts down from the number of seconds to -1, moved stop to -1 so that 00:00:00 shows at the final time and has an ending tone
+    for x in range((new_Mlength), -1, -1):
+        seconds = x % 60
+        minutes = int(x / 60) % 60
+        hours = int(x/3600)
 
-    #prints the time left
-    print(f"{hours:02}:{minutes:02}:{seconds:02}")
+        #As we increment count if it is dvisible by interval length the ding should go off OR when we hit the last x (-1) in the range
+        if count % new_Ilength == 0 or x == 0:
+            play_sound = ding.play()
+        count += 1
 
-    #suspends execution for 1 second, creating the timer
-    time.sleep(1)
+        #prints the time left
+        time_left = (f"{hours:02}:{minutes:02}:{seconds:02}")
+        # print(time_left)
 
-print("Time's up")
+        #suspends execution for 1 second, creating the timer
+        time.sleep(1)
+    return(time_left)
+    print("Time's up")
